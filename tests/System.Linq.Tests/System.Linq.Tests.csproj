@@ -1,0 +1,63 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>ZLinq.Tests</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <TargetFrameworks>net9.0;net10.0</TargetFrameworks>
+    <LangVersion>14</LangVersion>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+
+    <!-- Use custom root namespace -->
+    <RootNamespace>ZLinq.Tests</RootNamespace>
+  </PropertyGroup>
+
+  <!-- Microsoft.Testing.Platform Support -->
+  <PropertyGroup>
+    <UseMicrosoftTestingPlatformRunner>true</UseMicrosoftTestingPlatformRunner>
+    <TestingPlatformDotnetTestSupport>true</TestingPlatformDotnetTestSupport>
+    <TestingPlatformShowTestsFailure>true</TestingPlatformShowTestsFailure>
+  </PropertyGroup>
+
+  <!-- Add .NET 11 support if .NET 11 or later version of MSBuild is used. -->
+  <PropertyGroup Condition="$([MSBuild]::VersionGreaterThanOrEquals('$(NETCoreAppMaximumVersion)','11.0'))">
+    <TargetFrameworks>$(TargetFrameworks);net11.0</TargetFrameworks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="$(MSBuildThisFileName).slnx" />
+    <Content Include="xunit.runner.json" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="xunit.v3" Version="3.2.2" />
+    <PackageReference Include="Shouldly" Version="4.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="Xunit" />
+    <Using Include="Shouldly" />
+    <Using Include="ZLinq" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\ZLinq\ZLinq.csproj" />
+  </ItemGroup>
+
+  <!-- Enable ZLinq.DropInGenerator -->
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\ZLinq.DropInGenerator\ZLinq.DropInGenerator.csproj">
+      <OutputItemType>Analyzer</OutputItemType>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+
+    <AssemblyAttribute Include="ZLinq.ZLinqDropInAttribute">
+      <_Parameter1></_Parameter1>
+      <_Parameter2>ZLinq.DropInGenerateTypes.Everything</_Parameter2>
+      <_Parameter2_IsLiteral>true</_Parameter2_IsLiteral>
+      <_Parameter2_TypeName>ZLinq.DropInGenerateTypes</_Parameter2_TypeName>
+    </AssemblyAttribute>
+  </ItemGroup>
+
+</Project>

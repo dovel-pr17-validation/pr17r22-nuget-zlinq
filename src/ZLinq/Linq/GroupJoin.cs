@@ -1,0 +1,306 @@
+﻿namespace ZLinq
+{
+    partial class ValueEnumerableExtensions
+    {
+        /// <summary>Correlates the elements of two sequences based on equality of keys and groups the results.</summary>
+        /// <param name="source">The source sequence.</param>
+        /// <param name="inner">The sequence to join to the source sequence.</param>
+        /// <param name="outerKeySelector">A function to extract the join key from each element of the source sequence.</param>
+        /// <param name="innerKeySelector">A function to extract the join key from each element of the inner sequence.</param>
+        /// <param name="resultSelector">A function to create a result element from an element from the source sequence and a collection of matching elements from the inner sequence.</param>
+        /// <returns>A sequence that contains elements of the result type that are obtained by performing a grouped join on two sequences.</returns>
+        public static ValueEnumerable<GroupJoin<TEnumerator, TEnumerator2, TOuter, TInner, TKey, TResult>, TResult> GroupJoin<TEnumerator, TEnumerator2, TOuter, TInner, TKey, TResult>(this ValueEnumerable<TEnumerator, TOuter> source, ValueEnumerable<TEnumerator2, TInner> inner, Func<TOuter, TKey> outerKeySelector, Func<TInner, TKey> innerKeySelector, Func<TOuter, IEnumerable<TInner>, TResult> resultSelector)
+            where TEnumerator : struct, IValueEnumerator<TOuter>
+#if NET9_0_OR_GREATER
+            , allows ref struct
+#endif
+            where TEnumerator2 : struct, IValueEnumerator<TInner>
+#if NET9_0_OR_GREATER
+            , allows ref struct
+#endif
+            => new(new(source.Enumerator, inner.Enumerator, Throws.IfNull(outerKeySelector), Throws.IfNull(innerKeySelector), Throws.IfNull(resultSelector), null));
+
+        /// <summary>Correlates the elements of two sequences based on equality of keys and groups the results.</summary>
+        /// <param name="source">The source sequence.</param>
+        /// <param name="inner">The sequence to join to the source sequence.</param>
+        /// <param name="outerKeySelector">A function to extract the join key from each element of the source sequence.</param>
+        /// <param name="innerKeySelector">A function to extract the join key from each element of the inner sequence.</param>
+        /// <param name="resultSelector">A function to create a result element from an element from the source sequence and a collection of matching elements from the inner sequence.</param>
+        /// <param name="comparer">An equality comparer to compare keys, or <see langword="null"/> to use the default equality comparer.</param>
+        /// <returns>A sequence that contains elements of the result type that are obtained by performing a grouped join on two sequences.</returns>
+        public static ValueEnumerable<GroupJoin<TEnumerator, TEnumerator2, TOuter, TInner, TKey, TResult>, TResult> GroupJoin<TEnumerator, TEnumerator2, TOuter, TInner, TKey, TResult>(this ValueEnumerable<TEnumerator, TOuter> source, ValueEnumerable<TEnumerator2, TInner> inner, Func<TOuter, TKey> outerKeySelector, Func<TInner, TKey> innerKeySelector, Func<TOuter, IEnumerable<TInner>, TResult> resultSelector, IEqualityComparer<TKey>? comparer)
+            where TEnumerator : struct, IValueEnumerator<TOuter>
+#if NET9_0_OR_GREATER
+            , allows ref struct
+#endif
+            where TEnumerator2 : struct, IValueEnumerator<TInner>
+#if NET9_0_OR_GREATER
+            , allows ref struct
+#endif
+            => new(new(source.Enumerator, inner.Enumerator, Throws.IfNull(outerKeySelector), Throws.IfNull(innerKeySelector), Throws.IfNull(resultSelector), comparer));
+
+
+
+        /// <summary>Correlates the elements of two sequences based on equality of keys and groups the results.</summary>
+        /// <param name="source">The source sequence.</param>
+        /// <param name="inner">The sequence to join to the source sequence.</param>
+        /// <param name="outerKeySelector">A function to extract the join key from each element of the source sequence.</param>
+        /// <param name="innerKeySelector">A function to extract the join key from each element of the inner sequence.</param>
+        /// <param name="resultSelector">A function to create a result element from an element from the source sequence and a collection of matching elements from the inner sequence.</param>
+        /// <returns>A sequence that contains elements of the result type that are obtained by performing a grouped join on two sequences.</returns>
+        public static ValueEnumerable<GroupJoin<TEnumerator, FromEnumerable<TInner>, TOuter, TInner, TKey, TResult>, TResult> GroupJoin<TEnumerator, TOuter, TInner, TKey, TResult>(this ValueEnumerable<TEnumerator, TOuter> source, IEnumerable<TInner> inner, Func<TOuter, TKey> outerKeySelector, Func<TInner, TKey> innerKeySelector, Func<TOuter, IEnumerable<TInner>, TResult> resultSelector)
+            where TEnumerator : struct, IValueEnumerator<TOuter>
+#if NET9_0_OR_GREATER
+            , allows ref struct
+#endif
+            => new(new(source.Enumerator, Throws.IfNull(inner).AsValueEnumerable().Enumerator, Throws.IfNull(outerKeySelector), Throws.IfNull(innerKeySelector), Throws.IfNull(resultSelector), null));
+
+        /// <summary>Correlates the elements of two sequences based on equality of keys and groups the results.</summary>
+        /// <param name="source">The source sequence.</param>
+        /// <param name="inner">The sequence to join to the source sequence.</param>
+        /// <param name="outerKeySelector">A function to extract the join key from each element of the source sequence.</param>
+        /// <param name="innerKeySelector">A function to extract the join key from each element of the inner sequence.</param>
+        /// <param name="resultSelector">A function to create a result element from an element from the source sequence and a collection of matching elements from the inner sequence.</param>
+        /// <param name="comparer">An equality comparer to compare keys, or <see langword="null"/> to use the default equality comparer.</param>
+        /// <returns>A sequence that contains elements of the result type that are obtained by performing a grouped join on two sequences.</returns>
+        public static ValueEnumerable<GroupJoin<TEnumerator, FromEnumerable<TInner>, TOuter, TInner, TKey, TResult>, TResult> GroupJoin<TEnumerator, TOuter, TInner, TKey, TResult>(this ValueEnumerable<TEnumerator, TOuter> source, IEnumerable<TInner> inner, Func<TOuter, TKey> outerKeySelector, Func<TInner, TKey> innerKeySelector, Func<TOuter, IEnumerable<TInner>, TResult> resultSelector, IEqualityComparer<TKey>? comparer)
+            where TEnumerator : struct, IValueEnumerator<TOuter>
+#if NET9_0_OR_GREATER
+            , allows ref struct
+#endif
+            => new(new(source.Enumerator, Throws.IfNull(inner).AsValueEnumerable().Enumerator, Throws.IfNull(outerKeySelector), Throws.IfNull(innerKeySelector), Throws.IfNull(resultSelector), comparer));
+
+        /// <summary>Correlates the elements of two sequences based on equality of keys and groups the results.</summary>
+        /// <param name="source">The source sequence.</param>
+        /// <param name="inner">The sequence to join to the source sequence.</param>
+        /// <param name="outerKeySelector">A function to extract the join key from each element of the source sequence.</param>
+        /// <param name="innerKeySelector">A function to extract the join key from each element of the inner sequence.</param>
+        /// <param name="comparer">An equality comparer to compare keys, or <see langword="null"/> to use the default equality comparer.</param>
+        /// <returns>A sequence of groups, where each group's key is an element of the source sequence and its elements are the matching elements of the inner sequence.</returns>
+        public static ValueEnumerable<GroupJoin<TEnumerator, TEnumerator2, TOuter, TInner, TKey>, IGrouping<TOuter, TInner>> GroupJoin<TEnumerator, TEnumerator2, TOuter, TInner, TKey>(this ValueEnumerable<TEnumerator, TOuter> source, ValueEnumerable<TEnumerator2, TInner> inner, Func<TOuter, TKey> outerKeySelector, Func<TInner, TKey> innerKeySelector, IEqualityComparer<TKey>? comparer = null)
+            where TEnumerator : struct, IValueEnumerator<TOuter>
+#if NET9_0_OR_GREATER
+            , allows ref struct
+#endif
+            where TEnumerator2 : struct, IValueEnumerator<TInner>
+#if NET9_0_OR_GREATER
+            , allows ref struct
+#endif
+            => new(new(source.Enumerator, inner.Enumerator, Throws.IfNull(outerKeySelector), Throws.IfNull(innerKeySelector), comparer));
+
+        /// <summary>Correlates the elements of two sequences based on equality of keys and groups the results.</summary>
+        /// <param name="source">The source sequence.</param>
+        /// <param name="inner">The sequence to join to the source sequence.</param>
+        /// <param name="outerKeySelector">A function to extract the join key from each element of the source sequence.</param>
+        /// <param name="innerKeySelector">A function to extract the join key from each element of the inner sequence.</param>
+        /// <param name="comparer">An equality comparer to compare keys, or <see langword="null"/> to use the default equality comparer.</param>
+        /// <returns>A sequence of groups, where each group's key is an element of the source sequence and its elements are the matching elements of the inner sequence.</returns>
+        public static ValueEnumerable<GroupJoin<TEnumerator, FromEnumerable<TInner>, TOuter, TInner, TKey>, IGrouping<TOuter, TInner>> GroupJoin<TEnumerator, TOuter, TInner, TKey>(this ValueEnumerable<TEnumerator, TOuter> source, IEnumerable<TInner> inner, Func<TOuter, TKey> outerKeySelector, Func<TInner, TKey> innerKeySelector, IEqualityComparer<TKey>? comparer = null)
+            where TEnumerator : struct, IValueEnumerator<TOuter>
+#if NET9_0_OR_GREATER
+            , allows ref struct
+#endif
+            => new(new(source.Enumerator, Throws.IfNull(inner).AsValueEnumerable().Enumerator, Throws.IfNull(outerKeySelector), Throws.IfNull(innerKeySelector), comparer));
+    }
+}
+
+namespace ZLinq.Linq
+{
+    [StructLayout(LayoutKind.Auto)]
+    [EditorBrowsable(EditorBrowsableState.Never)]
+#if NET9_0_OR_GREATER
+    public ref
+#else
+    public
+#endif
+    struct GroupJoin<TEnumerator, TEnumerator2, TOuter, TInner, TKey, TResult>(TEnumerator source, TEnumerator2 inner, Func<TOuter, TKey> outerKeySelector, Func<TInner, TKey> innerKeySelector, Func<TOuter, IEnumerable<TInner>, TResult> resultSelector, IEqualityComparer<TKey>? comparer)
+        : IValueEnumerator<TResult>
+        where TEnumerator : struct, IValueEnumerator<TOuter>
+#if NET9_0_OR_GREATER
+        , allows ref struct
+#endif
+        where TEnumerator2 : struct, IValueEnumerator<TInner>
+#if NET9_0_OR_GREATER
+            , allows ref struct
+#endif
+    {
+        TEnumerator source = source;
+        TEnumerator2 inner = inner;
+
+        Lookup<TKey, TInner>? innerLookup;
+
+        public bool TryGetNonEnumeratedCount(out int count)
+        {
+            count = 0;
+            return false;
+        }
+
+        public bool TryGetSpan(out ReadOnlySpan<TResult> span)
+        {
+            span = default;
+            return false;
+        }
+
+        public bool TryCopyTo(scoped Span<TResult> destination, Index offset) => false;
+
+        public bool TryGetNext(out TResult current)
+        {
+            if (innerLookup == null)
+            {
+                try
+                {
+                    innerLookup = Lookup.CreateForJoin(ref inner, innerKeySelector, comparer);
+                }
+                finally
+                {
+                    inner.Dispose();
+                }
+            }
+
+            while (source.TryGetNext(out var value))
+            {
+                var key = outerKeySelector(value);
+                // Enumerable.GroupJoin allows null unlike Join
+                var group = innerLookup.GetGroup(key);
+                if (group != null)
+                {
+                    current = resultSelector(value, group);
+                    return true;
+                }
+                else
+                {
+                    // return empty grouping
+                    current = resultSelector(value, []);
+                    return true;
+                }
+            }
+
+            Unsafe.SkipInit(out current);
+            return false;
+        }
+
+        public void Dispose()
+        {
+            if (innerLookup == null)
+            {
+                inner.Dispose();
+            }
+            source.Dispose();
+        }
+    }
+
+    [StructLayout(LayoutKind.Auto)]
+    [EditorBrowsable(EditorBrowsableState.Never)]
+#if NET9_0_OR_GREATER
+    public ref
+#else
+    public
+#endif
+    struct GroupJoin<TEnumerator, TEnumerator2, TOuter, TInner, TKey>(TEnumerator source, TEnumerator2 inner, Func<TOuter, TKey> outerKeySelector, Func<TInner, TKey> innerKeySelector, IEqualityComparer<TKey>? comparer)
+        : IValueEnumerator<IGrouping<TOuter, TInner>>
+        where TEnumerator : struct, IValueEnumerator<TOuter>
+#if NET9_0_OR_GREATER
+        , allows ref struct
+#endif
+        where TEnumerator2 : struct, IValueEnumerator<TInner>
+#if NET9_0_OR_GREATER
+            , allows ref struct
+#endif
+    {
+        TEnumerator source = source;
+        TEnumerator2 inner = inner;
+
+        Lookup<TKey, TInner>? innerLookup;
+
+        public bool TryGetNonEnumeratedCount(out int count)
+        {
+            count = 0;
+            return false;
+        }
+
+        public bool TryGetSpan(out ReadOnlySpan<IGrouping<TOuter, TInner>> span)
+        {
+            span = default;
+            return false;
+        }
+
+        public bool TryCopyTo(scoped Span<IGrouping<TOuter, TInner>> destination, Index offset) => false;
+
+        public bool TryGetNext(out IGrouping<TOuter, TInner> current)
+        {
+            if (innerLookup == null)
+            {
+                try
+                {
+                    innerLookup = Lookup.CreateForJoin(ref inner, innerKeySelector, comparer);
+                }
+                finally
+                {
+                    inner.Dispose();
+                }
+            }
+
+            if (source.TryGetNext(out var value))
+            {
+                var key = outerKeySelector(value);
+                // Enumerable.GroupJoin allows null unlike Join
+                var group = innerLookup.GetGroup(key);
+                // return empty grouping if there is no matching group
+                current = new GroupJoinGrouping<TOuter, TInner>(value, group != null ? group : Array.Empty<TInner>());
+                return true;
+            }
+
+            Unsafe.SkipInit(out current);
+            return false;
+        }
+
+        public void Dispose()
+        {
+            if (innerLookup == null)
+            {
+                inner.Dispose();
+            }
+            source.Dispose();
+        }
+    }
+
+    // IGrouping for GroupJoin without resultSelector, the key is the outer element.
+    // elements may be shared by outer elements with the same key, so it is exposed as read-only.
+    internal sealed class GroupJoinGrouping<TOuter, TElement>(TOuter key, IList<TElement> elements) : IGrouping<TOuter, TElement>, IList<TElement>, IReadOnlyList<TElement>
+    {
+        public TOuter Key => key;
+
+        public int Count => elements.Count;
+
+        // we need an IList implementation for System.Linq internal optimization usage
+
+        public bool IsReadOnly => true;
+
+        public TElement this[int index]
+        {
+            get => elements[index];
+            set => throw new NotSupportedException();
+        }
+
+        public IEnumerator<TElement> GetEnumerator() => elements.GetEnumerator();
+
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => GetEnumerator();
+
+        public int IndexOf(TElement item) => elements.IndexOf(item);
+
+        // use IndexOf because Grouping.Contains searches the unused capacity of its buffer as well
+        public bool Contains(TElement item) => elements.IndexOf(item) >= 0;
+
+        public void CopyTo(TElement[] array, int arrayIndex) => elements.CopyTo(array, arrayIndex);
+
+        public void Insert(int index, TElement item) => throw new NotSupportedException();
+
+        public void RemoveAt(int index) => throw new NotSupportedException();
+
+        public void Add(TElement item) => throw new NotSupportedException();
+
+        public void Clear() => throw new NotSupportedException();
+
+        public bool Remove(TElement item) => throw new NotSupportedException();
+    }
+}
